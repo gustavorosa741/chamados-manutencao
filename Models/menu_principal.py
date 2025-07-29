@@ -23,6 +23,13 @@ class MenuPrincipal:
             self.content_area.controls.append(ft.Text(f"Clicou em: {e.control.text}"))
             page.update()
 
+        def abrir_cadastro_funcionario(e):
+            from Models.cadastro_funcionario import CadastroUsuario
+            self.content_area.controls.clear()
+            self.content_area.controls.append(CadastroUsuario().get_container())
+            page.update()
+
+
         menu_superior = ft.Container(
             content=ft.Row(
                 controls=[
@@ -30,6 +37,7 @@ class MenuPrincipal:
                         content=ft.Text("Cadastrar", weight=ft.FontWeight.BOLD),
                         items=[
                             ft.PopupMenuItem(text="Novo Chamado", on_click=menu_clicked),
+                            ft.PopupMenuItem(text="Novo Usuario", on_click=abrir_cadastro_funcionario),                            
                         ]
                     ),
                     ft.PopupMenuButton(
@@ -71,5 +79,5 @@ class MenuPrincipal:
             )
         )
 
-        self.content_area.controls.append(ft.Text("Bem-vindo ao sistema de biblioteca!", size=24))
+        self.content_area.controls.append(ft.Text("Bem-vindo ao sistema de chamados!", size=24))
         page.update()

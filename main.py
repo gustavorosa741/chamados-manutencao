@@ -1,5 +1,6 @@
 import flet as ft
 from DB.database import engine, Base
+from Models.login import Login
 
 def create_tables():
     Base.metadata.create_all(engine)
