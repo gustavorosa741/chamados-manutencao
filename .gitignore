@@ -1,0 +1,4 @@
+.env
+DB/__pycache__
+Models/__pycache__
+Tables/__pycache__
