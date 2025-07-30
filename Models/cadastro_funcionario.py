@@ -4,10 +4,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from Tables.usuario import Usuario
     
 
-
 class CadastroUsuario:
     def __init__(self):
-        aviso = ft.Text("", color=ft.Colors.RED, size=18)
 
         usuario = ft.TextField(
             label="Usuário",
@@ -35,45 +33,50 @@ class CadastroUsuario:
             can_reveal_password=True,
             border_radius=10,
             prefix_icon=ft.Icons.LOCK
-        )   
+        ) 
+
+        self.error_text = ft.Text("", size=18)
 
         def cadastrar_user(e):
             if not all([usuario.value, senha.value, confirmar_senha.value]):
-                aviso.value = "Preencha todos os campos"
-                aviso.color = ft.Colors.RED
-                
-                return
+                self.error_text.value = "Preencha todos os campos!"
+                self.error_text.color = ft.Colors.RED
+                e.page.update()
 
-            if len(senha.value) < 8:
-                aviso.value = "A senha deve ter no mínimo 8 caracteres"
-                aviso.color = ft.Colors.RED
-                
-                return
+            elif len(senha.value) < 8:
+                self.error_text.value = "A senha deve ter no mínimo 8 caracteres"
+                self.error_text.color = ft.Colors.RED
+                e.page.update()
 
-            if senha.value != confirmar_senha.value:
-                aviso.value = "As senhas não são iguais"
-                aviso.color = ft.Colors.RED
-                
+            elif senha.value != confirmar_senha.value:
+                self.error_text.value = "As senhas não são iguais"
+                self.error_text.color = ft.Colors.RED
+                e.page.update()
                 return
-
+                
             verificar_usuario = session.query(Usuario).filter_by(usuario=usuario.value).first()
+
             try:
                 if verificar_usuario:
-                    aviso.value = "Usuário já existe"
-                    aviso.color = ft.Colors.RED
-                    
+                    self.error_text.value = "Usuário já existe"
+                    self.error_text.color = ft.Colors.RED
+                    e.page.update()
                     return
 
                 novo_usuario = Usuario(usuario=usuario.value, senha=generate_password_hash(senha.value))
                 session.add(novo_usuario)
                 session.commit()
 
-                aviso.value = "Usuário cadastrado com sucesso"
-                aviso.color = ft.Colors.GREEN
-
+                self.error_text.value = "Usuário cadastrado com sucesso"
+                self.error_text.color = ft.Colors.GREEN
+                e.page.update()
+            
             except Exception as ex:
-                aviso.value = f"Erro: {str(ex)}"
-                aviso.color = ft.Colors.RED
+                self.error_text.value = f"Erro: {str(ex)}"
+                self.error_text.color = ft.Colors.RED
+                e.page.update()
+
+                
 
         self.login_form = ft.Column(
             [
@@ -82,7 +85,7 @@ class CadastroUsuario:
                 usuario,
                 senha,
                 confirmar_senha,
-                aviso,
+                self.error_text,
                 ft.Container(
                     ft.ElevatedButton(
                         "Cadastrar",
@@ -104,6 +107,7 @@ class CadastroUsuario:
             alignment=ft.MainAxisAlignment.CENTER,
             spacing=20
         )
+        
         
     def get_container(self):
         return ft.Container(

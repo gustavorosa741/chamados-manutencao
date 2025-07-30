@@ -1,13 +1,14 @@
 import flet as ft
 from DB.database import engine, Base
 from Models.login import Login
+from Models.menu_principal import MenuPrincipal
 
 def create_tables():
     Base.metadata.create_all(engine)
 
 def main(page: ft.Page):
     create_tables()
-    Login(page)
+    MenuPrincipal(page)
     page.update()
 
 if __name__ == "__main__":
