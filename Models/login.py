@@ -45,20 +45,22 @@ class Login:
             usuario = self.username_field.value
             senha = self.password_field.value
 
-            if not usuario or not senha:
-                self.error_text.value = "Preencha todos os campos!"
-                page.update()
-                return
-
             try:
                 usuario_db = session.query(Usuario).filter_by(usuario=usuario).first()
-                if usuario_db and check_password_hash(usuario_db.senha, senha):
+
+                if not usuario or not senha:
+                    self.error_text.value = "Preencha todos os campos!"
+                    page.update()
+
+                elif usuario_db and check_password_hash(usuario_db.senha, senha):
                     from Models.menu_principal import MenuPrincipal
                     page.clean()
                     MenuPrincipal(page)
+                    
                 else:
                     self.error_text.value = "Usuário ou senha inválidos!"
                     page.update()
+
             except Exception as ex:
                 self.error_text.value = f"Erro: {str(ex)}"
                 page.update()

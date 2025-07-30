@@ -8,7 +8,7 @@ def create_tables():
 
 def main(page: ft.Page):
     create_tables()
-    MenuPrincipal(page)
+    Login(page)
     page.update()
 
 if __name__ == "__main__":
