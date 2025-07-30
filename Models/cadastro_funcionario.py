@@ -121,7 +121,5 @@ class CadastroUsuario:
             expand=True,
             bgcolor=ft.Colors.BLUE_100
         )
-
-
-            
-
+    
+    
