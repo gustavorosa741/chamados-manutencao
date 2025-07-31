@@ -113,6 +113,7 @@ class Login:
                         content=conteudo,
                         padding=40,
                         width=500,
+                        height=600,
                         border_radius=20,
                         bgcolor=ft.Colors.WHITE70,
                     ),
