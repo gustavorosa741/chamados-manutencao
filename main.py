@@ -1,5 +1,9 @@
 import flet as ft
 from DB.database import engine, Base
+from Tables import maquina, usuario, chamado
+
+
+
 from Models.login import Login
 from Models.menu_principal import MenuPrincipal
 
@@ -8,7 +12,7 @@ def create_tables():
 
 def main(page: ft.Page):
     create_tables()
-    Login(page)
+    MenuPrincipal(page)
     page.update()
 
 if __name__ == "__main__":
