@@ -41,6 +41,13 @@ class MenuPrincipal:
             self.content_area.controls.append(ListarMaquina(page).get_container())
             page.update()
 
+        def abrir_cadastro_chamado(e):
+            from Models.cadastro_chamado import CadastroChamado
+            self.content_area.controls.clear()
+            self.content_area.controls.append(CadastroChamado().get_container())
+            page.update()
+
+
 
 
 
@@ -50,7 +57,7 @@ class MenuPrincipal:
                     ft.PopupMenuButton(
                         content=ft.Text("Cadastrar", weight=ft.FontWeight.BOLD),
                         items=[
-                            ft.PopupMenuItem(text="Novo Chamado", on_click=menu_clicked),
+                            ft.PopupMenuItem(text="Novo Chamado", on_click=abrir_cadastro_chamado),
                             ft.PopupMenuItem(text="Novo Usuario", on_click=abrir_cadastro_funcionario),
                             ft.PopupMenuItem(text="Nova Máquina", on_click=abrir_cadastro_maquina),
                             
