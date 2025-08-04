@@ -29,6 +29,12 @@ class MenuPrincipal:
             self.content_area.controls.append(CadastroUsuario().get_container())
             page.update()
 
+        def abrir_lista_funcionario(e):
+            from Models.cadastro_funcionario import ListarUsuario
+            self.content_area.controls.clear()
+            self.content_area.controls.append(ListarUsuario(page).get_container())
+            page.update()
+
         def abrir_cadastro_maquina(e):
             from Models.cadastro_maquina import CadastroMaquina
             self.content_area.controls.clear()
@@ -67,7 +73,7 @@ class MenuPrincipal:
                         content=ft.Text("Consultar", weight=ft.FontWeight.BOLD),
                         items=[
                             ft.PopupMenuItem(text="Lista de Chamados", on_click=menu_clicked),
-                            ft.PopupMenuItem(text="Lista de Usuarios", on_click=menu_clicked),
+                            ft.PopupMenuItem(text="Lista de Usuarios", on_click=abrir_lista_funcionario),
                             ft.PopupMenuItem(text="Lista de Máquinas", on_click=abrir_lista_maquina),
                         ]
                     ),
